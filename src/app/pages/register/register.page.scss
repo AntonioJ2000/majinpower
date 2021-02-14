@@ -1,0 +1,28 @@
+.loginContent{
+    text-align: center;
+}
+
+.buttonType{
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(26, 26, 26); 
+    height: 50px;
+    --border-color:rgb(26, 26, 26);
+}
+
+.buttonType2{
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgb(199, 0, 0); 
+    height: 50px;
+    --border-color:rgb(199, 0, 0);
+}
+
+
+.loginItem{
+    margin-top: 20px;
+}

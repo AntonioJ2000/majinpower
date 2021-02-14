@@ -1,0 +1,17 @@
+{
+    "/user":{
+        "target": "http://localhost:8080",
+        "changeOrigin":true,
+        "secure":false,
+        "logLevel": "debug"
+    },
+    
+    "/personalroutine":{
+        "target": "http://localhost:8080",
+        "changeOrigin":true,
+        "secure":false,
+        "logLevel": "debug"
+    }
+
+    
+}

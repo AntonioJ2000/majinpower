@@ -1,0 +1,27 @@
+<ion-content class ="loginContent">
+
+  <ion-img class="imgEdit" src="../assets/majin.png"></ion-img>
+
+  <form [formGroup]="tasks" (ngSubmit)="this.login()">
+    <ion-item lines="none" class="loginItem">
+      <ion-icon name="person"></ion-icon>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input  type="text" formControlName="login" clear-input="true"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="passwordItem">
+      <ion-icon name="diamond"></ion-icon>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" formControlName="password" clear-input="true" size="password"></ion-input>
+    </ion-item>
+
+    <ion-button  class="buttonType" fill="outline" type="submit" [disabled]="!tasks.valid" size="large" mode="ios">
+      <ion-icon name="barbell"></ion-icon>
+    </ion-button>
+  </form>
+
+  <ion-text class="registerLabel">
+    <p>Si aún no te has registrado, <a style="text-color: blue" (click)="registerUser()">Hazlo aquí</a></p>
+  </ion-text>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "majinpower",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

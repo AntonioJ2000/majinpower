@@ -25,6 +25,49 @@ export class ApiPersonalRoutinesService {
     });
 }
 
+public createPersonalRoutine(personalRoutine:PersonalRoutine):Promise<void>{
+  const endpoint = environment.endpoint + environment.apiPersonalRoutine;
+  return new Promise((resolve, reject)=>{
+    if(personalRoutine){
+      this.http.setDataSerializer('json');
+      this.http
+      .post(endpoint, personalRoutine, this.header)
+      .then(d =>{
+        resolve();
+      }).catch(err => reject(err))
+    }else{
+      reject('No Personal Routine provided')
+    }
+  })
+}
+
+public deleteUser(id:any):Promise<void>{
+  const endpoint = environment.endpoint + environment.apiPersonalRoutine + id;
+  return new Promise((resolve, reject)=>{
+    this.http
+    .delete(endpoint,{},this.header)
+    .then(d =>{
+      resolve();
+    }).catch(err => reject(err))
+  })
+}
+
+public updateRoutine(personalRoutine:PersonalRoutine):Promise<void>{
+  const endpoint = environment.endpoint + environment.apiPersonalRoutine;
+  return new Promise ((resolve, reject)=>{
+    if(personalRoutine){
+      this.http.setDataSerializer('json');
+      this.http
+      .put(endpoint, personalRoutine, this.header)
+      .then(d =>{
+        resolve();
+      }).catch(err => reject(err))
+    }else{
+      reject('No routine exist')
+    }
+  })
+}
+
 private get header():any{
   return {
     'Access-Control-Allow-Origin': '*',

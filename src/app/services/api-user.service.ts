@@ -79,7 +79,7 @@ export class ApiUserService {
             resolve();
           }).catch(err => reject(err))
       }else{
-        reject('No existe item');
+        reject('No user exist');
       }
     })
   }

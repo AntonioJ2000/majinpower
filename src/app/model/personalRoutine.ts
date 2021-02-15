@@ -1,11 +1,11 @@
 import { User } from "./user";
 
 export interface PersonalRoutine{
-    id:any;
+    id?:any;
     title:string,
     description:string,
     duration:any,
     difficulty:string,
-    timesDone:any,
+    timesDone?:any,
     user:User
 }

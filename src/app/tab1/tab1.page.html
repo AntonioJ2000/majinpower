@@ -1,46 +1,51 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-      <ion-avatar class="avatar" slot ="start" style="width: 45px; height: 45px;">
-        <img src="assets/defaulticon.png">
-      </ion-avatar>
-      <ion-label class="nameLabel">Anto</ion-label>
-      <ion-label slot="end" class="zpower">{{this.user.zpower}}</ion-label>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item lines="full" *ngFor="let PersonalRoutine of listado">
-      <ion-card>
-        <ion-item lines="full">
-          <ion-icon name="barbell-outline" slot="start"></ion-icon>
-          <ion-label class="cardDetails">{{PersonalRoutine.title}}</ion-label>
-          <ion-button fill="outline" slot="end">Hacer</ion-button>
-        </ion-item>
-      
-        <ion-card-content>
-          {{PersonalRoutine.description}}
-        </ion-card-content>
+    <ion-toolbar>
+        <ion-avatar class="avatar" slot ="start" style="width: 45px; height: 45px;">
+          <img src="assets/defaulticon.png">
+        </ion-avatar>
+        <ion-label class="nameLabel">{{this.user.loginName}}</ion-label>
+        <ion-label slot="end" class="zpower">{{this.user.zpower}}</ion-label>
+        <ion-avatar class="avatar" slot ="end" style="width: 55px; height: 55px;">
+          <img src="assets/zpower.png">
+        </ion-avatar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <div style="display: flex; align-items: center; justify-content: center;">
+    <ion-list>
+      <ion-item lines="full" *ngFor="let PersonalRoutine of listado">
+        <ion-card style="width: 100%;">
+          <ion-item lines="full">
+              <ion-icon name="close-circle-outline" color="danger" slot="start" style="margin-top: -3px; margin-left: -10px;" (click)="confirmDeleteRoutine(PersonalRoutine.id)"></ion-icon>
+            <ion-label class="cardDetails">{{PersonalRoutine.title}}</ion-label>
+            <ion-button fill="outline" slot="end">Hacer</ion-button>
+          </ion-item>
         
-        <ion-item lines="none" style="margin-bottom: -18px; margin-top: -15px;"> 
-          <ion-label class="cardDetails">Duración</ion-label>
-          <ion-label class="cardDetails">Dificultad</ion-label>
-          <ion-label class="cardDetails">Hecha:</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>{{PersonalRoutine.duration}} min</ion-label>
-          <ion-label>{{PersonalRoutine.difficulty}}</ion-label>
-          <ion-label>{{PersonalRoutine.timesDone}} veces</ion-label>
-        </ion-item>
-
-      </ion-card>
-    </ion-item>
-  </ion-list>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
+          <ion-card-content (click) = this.editaRutina(PersonalRoutine)>
+            {{PersonalRoutine.description}}
+          </ion-card-content>
+          
+          <ion-item lines="none" style="margin-bottom: -18px; margin-top: -15px;"> 
+            <ion-label class="cardDetails">Duración</ion-label>
+            <ion-label class="cardDetails">Dificultad</ion-label>
+            <ion-label class="cardDetails">Hecha:</ion-label>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-label>{{PersonalRoutine.duration}} min</ion-label>
+            <ion-label>{{PersonalRoutine.difficulty}}</ion-label>
+            <ion-label>{{PersonalRoutine.timesDone}} veces</ion-label>
+          </ion-item>
+  
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </div>
+  
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addNewRoutine()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-content>

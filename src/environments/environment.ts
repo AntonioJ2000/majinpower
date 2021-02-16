@@ -3,5 +3,6 @@ export const environment = {
   endpoint:'http://localhost:8100/',
   apiUser:'user/',
   apiPersonalRoutine:'personalroutine/',
-  existFilter:'exists/'
+  existFilter:'exists/',
+  zpowerUpdate:'updateZpower/'
 };

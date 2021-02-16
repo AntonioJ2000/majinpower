@@ -84,6 +84,22 @@ export class ApiUserService {
     })
   }
 
+  public updateUserZpower(user:User):Promise<void>{
+    const endpoint = environment.endpoint + environment.apiUser + environment.zpowerUpdate + user.id
+    return new Promise((resolve, reject)=>{
+      if(user){
+        this.http.setDataSerializer('json');
+        this.http
+        .put(endpoint, user, this.header)
+        .then(d =>{
+          resolve();
+        }).catch(err => reject(err))
+      }else{
+        reject('No user exists')
+      }
+    })
+  }
+
   private get header():any{
     return {
       'Access-Control-Allow-Origin': '*',

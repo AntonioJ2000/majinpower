@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { PersonalRoutine } from '../model/personalRoutine';
 import { User } from '../model/user';
 import { EditRutinePage } from '../pages/edit-rutine/edit-rutine.page';
 import { NewroutinePage } from '../pages/newroutine/newroutine.page';
-import { RegisterPage } from '../pages/register/register.page';
 import { ApiPersonalRoutinesService } from '../services/api-personal-routines.service';
 import { ApiUserService } from '../services/api-user.service';
 import { AuthService } from '../services/auth.service';
@@ -84,7 +83,7 @@ public async addNewRoutine(){
   }
 
   public async borraRutina(id:any){
-    await this.apiPersonalRoutines.deleteUser(id);
+    await this.apiPersonalRoutines.deletePersonalRoutine(id);
     await this.presentToast();
     this.carga();
   }
@@ -103,6 +102,14 @@ public async addNewRoutine(){
     .then((onEdit)=>{
       this.carga();
     })
+  }
+
+  public async addZpower(){
+    this.authS.user.zpower = this.authS.user.zpower + 1500;
+
+    await this.apiUser.updateUser(this.authS.user);
+
+    await this.presentToast();
   }
 
   async presentToast() {

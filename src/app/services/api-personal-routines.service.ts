@@ -41,7 +41,7 @@ public createPersonalRoutine(personalRoutine:PersonalRoutine):Promise<void>{
   })
 }
 
-public deleteUser(id:any):Promise<void>{
+public deletePersonalRoutine(id:any):Promise<void>{
   const endpoint = environment.endpoint + environment.apiPersonalRoutine + id;
   return new Promise((resolve, reject)=>{
     this.http

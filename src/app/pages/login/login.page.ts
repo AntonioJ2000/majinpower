@@ -12,7 +12,7 @@ import { RegisterPage } from '../register/register.page';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage{
   public tasks:FormGroup;
 
   constructor(private formBuilder:FormBuilder,
@@ -29,8 +29,6 @@ export class LoginPage implements OnInit {
 
               }
 
-  ngOnInit() {
-  }
 
   public async login(){
     await this.presentLoading();

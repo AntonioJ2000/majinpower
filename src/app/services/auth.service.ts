@@ -20,7 +20,20 @@ export class AuthService implements CanActivate{
 
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    return true;
+    if(!this.isLogged()){
+      this.router.navigate(['/login']);
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  public isLogged(): boolean{
+    if(this.user.id == -1){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   public async login(user:User){

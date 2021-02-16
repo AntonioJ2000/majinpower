@@ -32,15 +32,13 @@ export class LoginPage{
 
   public async login(){
     await this.presentLoading();
-      let user:User={
-        loginName:this.tasks.get('login').value,
-        password:this.tasks.get('password').value
-      }
+    this.authS.user.loginName = this.tasks.get('login').value;
+    this.authS.user.password = this.tasks.get('password').value;
+    
+      this.authS.user = await this.api.existUser(this.authS.user.loginName, this.authS.user.password);
 
-      user = await this.api.existUser(user.loginName, user.password);
-
-      if(user != null){
-        await this.authS.login(user);
+      if(this.authS.user != null){
+        await this.authS.login(this.authS.user);
       }else{
         console.log("Error inicio")
       }   

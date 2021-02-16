@@ -29,7 +29,11 @@ constructor(private apiUser: ApiUserService,
 }
 
 ionViewWillEnter(){
-  this.carga();
+  if(this.authS.user.id == -1){
+    this.router.navigate(['/login'])
+  }else{
+    this.carga();
+  }
 }
 
 public async carga(){
@@ -104,11 +108,12 @@ public async addNewRoutine(){
     })
   }
 
-  public async addZpower(){
+  public async addZpower(PersonalRoutine:PersonalRoutine){
     this.authS.user.zpower = this.authS.user.zpower + 1500;
-
+    PersonalRoutine.timesDone = PersonalRoutine.timesDone + 1;
     await this.apiUser.updateUser(this.authS.user);
-
+    await this.apiPersonalRoutines.updateRoutine(PersonalRoutine);
+    
     await this.presentToast();
   }
 

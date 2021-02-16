@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { User } from '../model/user';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthService implements CanActivate{
     zpower:0
   }
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+              private storage: NativeStorage) { }
 
 
 

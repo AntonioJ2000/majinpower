@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
-import { User } from 'src/app/model/user';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ApiUserService } from 'src/app/services/api-user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterPage } from '../register/register.page';
@@ -12,13 +11,14 @@ import { RegisterPage } from '../register/register.page';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage{
+export class LoginPage {
   public tasks:FormGroup;
 
   constructor(private formBuilder:FormBuilder,
               public toastController: ToastController,
               public loadingController: LoadingController,
               private modalController:ModalController,
+              private storage: NativeStorage,
               private authS:AuthService,
               private api:ApiUserService) { 
     
@@ -28,7 +28,6 @@ export class LoginPage{
     })
 
               }
-
 
   public async login(){
     await this.presentLoading();
@@ -49,7 +48,7 @@ export class LoginPage{
       cssClass: 'my-custom-class',
       message: 'Validando credenciales',
       spinner:'crescent',
-      duration: 400
+      duration: 200
     });
     await loading.present();
   }

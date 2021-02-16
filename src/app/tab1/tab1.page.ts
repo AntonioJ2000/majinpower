@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { timer } from 'rxjs';
 import { PersonalRoutine } from '../model/personalRoutine';
 import { User } from '../model/user';
 import { EditRutinePage } from '../pages/edit-rutine/edit-rutine.page';
@@ -17,18 +18,31 @@ import { AuthService } from '../services/auth.service';
 export class Tab1Page{
 public listado:Array<PersonalRoutine>;
 public user:User;
+public buttonDisabled:boolean = false;
 
 constructor(private apiUser: ApiUserService,
             private apiPersonalRoutines: ApiPersonalRoutinesService,
             private router:Router,
             private authS:AuthService,
+            public loadingController: LoadingController,
             public toastController: ToastController,
             public alertController: AlertController,
             private modalController:ModalController) {
             this.user = authS.user;
 }
 
-ionViewWillEnter(){
+startTimer(){
+  this.buttonDisabled = true;
+  const numbers = timer(0, 1000);
+    numbers.subscribe(x=>{
+      if(x == 3600){
+        this.buttonDisabled = false;
+      }
+    });
+}
+
+async ionViewWillEnter(){
+  await this.presentLoading();
   if(this.authS.user.id == -1){
     this.router.navigate(['/login'])
   }else{
@@ -88,7 +102,7 @@ public async addNewRoutine(){
 
   public async borraRutina(id:any){
     await this.apiPersonalRoutines.deletePersonalRoutine(id);
-    await this.presentToast();
+    await this.presentToast('La rutina ha sido borrada con éxito');
     this.carga();
   }
 
@@ -108,23 +122,39 @@ public async addNewRoutine(){
     })
   }
 
-  public async addZpower(PersonalRoutine:PersonalRoutine){
+  public async addZpower(){
     this.authS.user.zpower = this.authS.user.zpower + 1500;
-    PersonalRoutine.timesDone = PersonalRoutine.timesDone + 1;
+
     await this.apiUser.updateUser(this.authS.user);
-    await this.apiPersonalRoutines.updateRoutine(PersonalRoutine);
-    
-    await this.presentToast();
+
+    await this.presentToast('¡Has aumentado de poder!');
   }
 
-  async presentToast() {
+  public async addRoutineTimesDoneCount(PersonalRoutine:PersonalRoutine){
+    PersonalRoutine.timesDone = PersonalRoutine.timesDone + 1;
+
+    await this.apiPersonalRoutines.updateRoutine(PersonalRoutine);
+  }
+
+
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       cssClass: 'myToast',
-      message: 'La rutina se ha borrado correctamente',
+      message: message,
       duration: 1000,
       position:"bottom"
     });
     toast.present();
+  }
+
+  async presentLoading(){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: '',
+      spinner:'crescent',
+      duration: 600
+    });
+    await loading.present();
   }
 
 }

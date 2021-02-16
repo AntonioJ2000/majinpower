@@ -36,5 +36,12 @@
     --background:white;
     .alertDelete{
         color:rgb(184, 0, 0);
-    }
+    }  
+}
+
+.loading-wrapper{
+    --spinner-color: black;
+    background: transparent !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
 }

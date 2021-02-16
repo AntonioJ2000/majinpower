@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import {  ApiUserService } from './services/api-user.service';
 import { AuthService } from './services/auth.service';
 import { HTTP } from '@ionic-native/http/ngx'
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { HTTP } from '@ionic-native/http/ngx'
     HTTP,
     ApiUserService,
     ModalController,
+    NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

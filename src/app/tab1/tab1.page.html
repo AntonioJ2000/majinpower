@@ -19,11 +19,11 @@
           <ion-item lines="full">
               <ion-icon name="close-circle-outline" color="danger" slot="start" style="margin-top: -3px; margin-left: -10px;" (click)="confirmDeleteRoutine(PersonalRoutine.id)"></ion-icon>
             <ion-label class="cardDetails">{{PersonalRoutine.title}}</ion-label>
-            <ion-button fill="outline" slot="end" (click)="this.addZpower(PersonalRoutine)">Hacer</ion-button>
+            <ion-button fill="outline" slot="end" [disabled]="buttonDisabled" (click)="this.addZpower(); this.addRoutineTimesDoneCount(PersonalRoutine); this.startTimer();">Hacer</ion-button>
           </ion-item>
         
           <ion-card-content (click) = this.editaRutina(PersonalRoutine)>
-            {{PersonalRoutine.description}}
+          {{PersonalRoutine.description}}
           </ion-card-content>
           
           <ion-item lines="none" style="margin-bottom: -18px; margin-top: -15px;"> 

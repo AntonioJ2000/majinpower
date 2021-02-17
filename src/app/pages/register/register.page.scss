@@ -1,11 +1,13 @@
-.loginContent{
+.registerContent{
     text-align: center;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .buttonType{
     float: right;
     margin-top: 10px;
-    margin-right: 20px;
+    margin-right: 65px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: rgb(26, 26, 26); 
     height: 50px;
@@ -15,7 +17,7 @@
 .buttonType2{
     float: left;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 65px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color:rgb(199, 0, 0); 
     height: 50px;
@@ -24,7 +26,15 @@
 
 
 .loginItem{
+    padding-left: 50px;
+    padding-right: 50px;
     margin-top: 20px;
+}
+
+.passwordItem{
+    margin-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .title{

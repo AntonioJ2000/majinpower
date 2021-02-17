@@ -1,27 +1,37 @@
 <ion-content class ="loginContent">
-
-  <ion-img class="imgEdit" src="../assets/majin.png"></ion-img>
+ 
+     <div style="text-align: center;">
+      <img class="imgEdit" src="../assets/majin.png">
+    </div>    
 
   <form [formGroup]="tasks" (ngSubmit)="this.login()">
-    <ion-item lines="none" class="loginItem">
-      <ion-icon name="person"></ion-icon>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input  type="text" formControlName="login" clear-input="true"></ion-input>
-    </ion-item>
+      <div class = "content-div">
 
-    <ion-item lines="none" class="passwordItem">
-      <ion-icon name="diamond"></ion-icon>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password" clear-input="true" size="password"></ion-input>
-    </ion-item>
+    <div style="overflow: hidden; justify-content: center; display: flex;">
+      <ion-item lines="none" class="loginItem">
+        <ion-icon name="person"></ion-icon>
+        <ion-label style="margin-left: 40px; font-weight: bold;">Nombre</ion-label>
+        <ion-input style="margin-left:40px" type="text" formControlName="login" clear-input="true"></ion-input>
+      </ion-item>
+    </div>
 
-    <ion-button  class="buttonType" fill="outline" type="submit" [disabled]="!tasks.valid" size="large" mode="ios">
-      <ion-icon name="barbell"></ion-icon>
-    </ion-button>
+    <div style="overflow: hidden; justify-content: center; display: flex;">
+      <ion-item lines="none" class="passwordItem">
+        <ion-icon name="diamond"></ion-icon>
+        <ion-label style="margin-left: 20px; font-weight: bold;">Contraseña</ion-label>
+        <ion-input style="margin-left: 36px" type="password" formControlName="password" clear-input="true" size="password"></ion-input>
+      </ion-item>
+    </div>
+
+      <ion-button  class="buttonType" fill="outline" type="submit" [disabled]="!tasks.valid"  mode="ios">
+        Entrar
+      </ion-button>
+
+    </div>
   </form>
 
-  <ion-text class="registerLabel">
-    <p>Si aún no te has registrado, <a style="text-color: blue" (click)="registerUser()">Hazlo aquí</a></p>
+  <ion-text>
+    <p class="registerLabel">Si aún no te has registrado, <a style="text-color: blue" (click)="registerUser()">Hazlo aquí</a></p>
   </ion-text>
 
 </ion-content>

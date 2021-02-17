@@ -19,8 +19,8 @@ export class RegisterPage {
               private modalController:ModalController) { 
 
                 this.tasks=this.formBuilder.group({
-                  login:['',Validators.required],
-                  password:['', Validators.required]
+                  login:['',[Validators.required, Validators.minLength(6)]],
+                  password:['', [Validators.required, Validators.minLength(6)]]
    })
   }
   

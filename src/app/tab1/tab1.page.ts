@@ -36,7 +36,7 @@ startTimer(personalRoutine:PersonalRoutine){
   let time = timer(0, 1000);
   let subscription = time.subscribe(x =>{
     console.log(x);
-    if(x == 10){
+    if(x == (personalRoutine.duration*60)){
       this.buttonDisabled = false;
       subscription.unsubscribe();
     }

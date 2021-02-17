@@ -24,7 +24,7 @@ export class NewroutinePage {
                 this.tasks=this.formBuilder.group({
                   title:['',Validators.required],
                   description:['', Validators.required],
-                  duration:['', Validators.required],
+                  duration:['', [Validators.required, Validators.maxLength(3), Validators.pattern("[0-9]*$")]],
                   difficulty:['', Validators.required]
    })
   }

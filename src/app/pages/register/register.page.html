@@ -1,31 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="title">Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class ="registerContent">
 
-<ion-content class ="loginContent">
+  <ion-text>
+    <p class="registerLabel">Registro</p>
+  </ion-text>
+
   <form [formGroup]="tasks" (ngSubmit)="this.register()">
    
     <ion-item lines="none" class="loginItem">
-      <ion-icon name="person"></ion-icon>
-      <ion-label position="floating">Nombre</ion-label>
+      <ion-label position="floating" style="font-weight: bold;">Nombre</ion-label>
       <ion-input  type="text" formControlName="login" clear-input="true"></ion-input>
     </ion-item>
 
     <ion-item lines="none" class="passwordItem">
-      <ion-icon name="diamond"></ion-icon>
-      <ion-label position="floating">Contraseña</ion-label>
+      <ion-label position="floating" style="font-weight: bold;">Contraseña</ion-label>
       <ion-input type="text" formControlName="password" clear-input="true" size="password"></ion-input>
     </ion-item>
 
-    <ion-button  class="buttonType" expand="block" fill="outline" type="submit" [disabled]="!tasks.valid" mode="ios">
-      Registrarse
-    </ion-button>
+    <div style="margin-top: 30px;">
+      <ion-button  class="buttonType" expand="block" fill="outline" type="submit" [disabled]="!tasks.valid" mode="ios">
+        Registrarse
+      </ion-button>
 
-    <ion-button class="buttonType2" expand="block" fill="outline" mode="ios" (click)="this.closeForm()">
-      Cancelar
-    </ion-button>
+      <ion-button class="buttonType2" expand="block" fill="outline" mode="ios" (click)="this.closeForm()">
+        Cancelar
+      </ion-button>
+    </div>
 
   </form>
 

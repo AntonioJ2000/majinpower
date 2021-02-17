@@ -37,7 +37,7 @@ export class LoginPage {
       this.authS.user = await this.api.existUser(this.authS.user.loginName, this.authS.user.password);
 
       if(this.authS.user != null){
-        await this.authS.login(this.authS.user);
+         this.authS.login(this.authS.user);
       }else{
         console.log("Error inicio")
       }   

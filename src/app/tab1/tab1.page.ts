@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { timer } from 'rxjs';
@@ -31,14 +31,16 @@ constructor(private apiUser: ApiUserService,
             this.user = authS.user;
 }
 
-startTimer(){
+startTimer(personalRoutine:PersonalRoutine){
   this.buttonDisabled = true;
-  const numbers = timer(0, 1000);
-    numbers.subscribe(x=>{
-      if(x == 3600){
-        this.buttonDisabled = false;
-      }
-    });
+  let time = timer(0, 1000);
+  let subscription = time.subscribe(x =>{
+    console.log(x);
+    if(x == 10){
+      this.buttonDisabled = false;
+      subscription.unsubscribe();
+    }
+  })
 }
 
 async ionViewWillEnter(){

@@ -1,22 +1,27 @@
-<ion-content class ="registerContent">
-
+<ion-content>
   <ion-text>
-    <p class="registerLabel">Registro</p>
+    <p class="registerLabel">Regístrate</p>
+    <p class="majinPower">en Majin Power</p>
   </ion-text>
 
   <form [formGroup]="tasks" (ngSubmit)="this.register()">
    
     <ion-item lines="none" class="loginItem">
-      <ion-label position="floating" style="font-weight: bold;">Nombre</ion-label>
-      <ion-input  type="text" formControlName="login" clear-input="true"></ion-input>
+      <ion-label class="nameLabel" position="floating">Nombre de usuario</ion-label>
+      <ion-input class="typing" type="text" formControlName="login" clear-input="true"></ion-input>
     </ion-item>
 
     <ion-item lines="none" class="passwordItem">
-      <ion-label position="floating" style="font-weight: bold;">Contraseña</ion-label>
-      <ion-input type="text" formControlName="password" clear-input="true" size="password"></ion-input>
+      <ion-label class="passwordLabel" position="floating" style="font-weight: bold;">Contraseña</ion-label>
+      <ion-input class="typing" type="text" formControlName="password" clear-input="true" size="password"></ion-input>
     </ion-item>
 
-    <div style="margin-top: 30px;">
+    <ion-item lines="none" class="confirmPasswordItem">
+      <ion-label class="confirmPasswordLabel" position="floating" style="font-weight: bold;">Introduzca de nuevo la contraseña</ion-label>
+      <ion-input class="typing" type="text" formControlName="confirmPassword" clear-input="true" size="password"></ion-input>
+    </ion-item>
+
+    <div style="margin-top: 10px;">
       <ion-button  class="buttonType" expand="block" fill="outline" type="submit" [disabled]="!tasks.valid" mode="ios">
         Registrarse
       </ion-button>
@@ -26,6 +31,13 @@
       </ion-button>
     </div>
 
+    <ion-text>
+      <p class="infoRegister">
+        <ion-icon color="primary" name="information-circle-outline"></ion-icon>
+        Recuerde que, como mínimo, su nombre de usuario ha de tener 6 carácteres al igual que su contraseña.
+      </p>
+    </ion-text>
+   
   </form>
 
 </ion-content>

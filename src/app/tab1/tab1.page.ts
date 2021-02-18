@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonSearchbar, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { timer } from 'rxjs';
 import { PersonalRoutine } from '../model/personalRoutine';
 import { User } from '../model/user';
@@ -9,6 +9,7 @@ import { NewroutinePage } from '../pages/newroutine/newroutine.page';
 import { ApiPersonalRoutinesService } from '../services/api-personal-routines.service';
 import { ApiUserService } from '../services/api-user.service';
 import { AuthService } from '../services/auth.service';
+import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,9 +17,14 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page{
+
+  @ViewChild('search',{static:false})search:IonSearchbar;
+
+public rutinas=[];
 public listado:Array<PersonalRoutine>;
 public user:User;
 public buttonDisabled:boolean = false;
+public majin = 'assets/majin.png';
 
 constructor(private apiUser: ApiUserService,
             private apiPersonalRoutines: ApiPersonalRoutinesService,
@@ -27,7 +33,9 @@ constructor(private apiUser: ApiUserService,
             public loadingController: LoadingController,
             public toastController: ToastController,
             public alertController: AlertController,
-            private modalController:ModalController) {
+            private modalController:ModalController,
+            private themeService:ThemeService,
+            private actionSheetController:ActionSheetController) {
             this.user = authS.user;
 }
 
@@ -35,12 +43,21 @@ startTimer(personalRoutine:PersonalRoutine){
   this.buttonDisabled = true;
   let time = timer(0, 1000);
   let subscription = time.subscribe(x =>{
-    console.log(x);
     if(x == (personalRoutine.duration*60)){
       this.buttonDisabled = false;
       subscription.unsubscribe();
     }
   })
+}
+
+public searchRoutine(ev:any){
+  const val = ev.target.value;
+  this.listado = this.rutinas;
+  if(val && val.trim()!= ''){
+    this.listado = this.listado.filter((rutina)=>{
+      return (rutina.title.toLowerCase().indexOf(val.toLowerCase()) > -1)
+    })
+  }
 }
 
 async ionViewWillEnter(){
@@ -56,6 +73,7 @@ public async carga(){
 
     try{
       this.listado = await this.apiPersonalRoutines.getPersonalRoutines(this.authS.user);
+      this.rutinas = this.listado;
       console.log(this.listado)
     }catch(err){
       console.log(err)
@@ -158,6 +176,44 @@ public async addNewRoutine(){
     });
     await loading.present();
   }
+
+  enableLight(){
+    this.themeService.enableLight();
+  }
+
+  enableDark(){
+    this.themeService.enableDark();
+  } 
+
+  async themeSelector(){
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Seleccione un tema',
+      cssClass: 'editThemeMenu',
+      mode:'md',
+      buttons:[{
+        text: 'Por defecto',
+        icon: 'ellipse-outline',
+        cssClass: 'editThemeMenu',
+        handler: () =>{
+          this.enableLight();
+          //Native Storage
+        }
+      },{
+        text: 'Modo Oscuro',
+        icon: 'ellipse',
+        cssClass: 'editThemeMenu',
+        handler:() =>{
+          this.enableDark();
+          //Native Storage
+        }
+
+
+      }]
+
+    });
+    await actionSheet.present();
+  }
+
 
 }
 

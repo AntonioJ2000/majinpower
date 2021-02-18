@@ -9,9 +9,13 @@
           <img src="assets/zpower.png">
         </ion-avatar>
     </ion-toolbar>
+    <div class="majinLogoDiv">
+      <img class="majinLogo" [src]="majin" >
+    </div>
   </ion-header>
   
   <ion-content [fullscreen]="true">
+    <ion-searchbar class="routineSearchBar" #search placeholder="Buscar rutina" (ionChange)="searchRoutine($event)"></ion-searchbar>
     <div style="display: flex; align-items: center; justify-content: center;">
     <ion-list>
       <ion-item lines="full" *ngFor="let PersonalRoutine of listado">
@@ -19,10 +23,10 @@
           <ion-item lines="full">
               <ion-icon name="close-circle-outline" color="danger" slot="start" style="margin-top: -3px; margin-left: -10px;" (click)="confirmDeleteRoutine(PersonalRoutine.id)"></ion-icon>
             <ion-label class="cardDetails">{{PersonalRoutine.title}}</ion-label>
-            <ion-button fill="outline" slot="end" [disabled]="buttonDisabled" (click)="this.addZpower(); this.addRoutineTimesDoneCount(PersonalRoutine); this.startTimer(PersonalRoutine);">Hacer</ion-button>
+            <ion-button class="doButton" fill="outline" slot="end" [disabled]="buttonDisabled" (click)="this.addZpower(); this.addRoutineTimesDoneCount(PersonalRoutine); this.startTimer(PersonalRoutine);">Hacer</ion-button>
           </ion-item>
         
-          <ion-card-content (click) = this.editaRutina(PersonalRoutine)>
+          <ion-card-content class="routineDescription" (click) = this.editaRutina(PersonalRoutine)>
           {{PersonalRoutine.description}}
           </ion-card-content>
           
@@ -43,9 +47,26 @@
     </ion-list>
   </div>
   
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addNewRoutine()">
+    <ion-fab-button color="warning">
+      <ion-icon name="chevron-back-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+
+      <ion-fab-button class="miniFab" (click)="addNewRoutine()">
         <ion-icon name="add-outline"></ion-icon>
       </ion-fab-button>
-    </ion-fab>
+
+      <ion-fab-button class="miniFab">
+        <ion-icon src="assets/trophy.svg"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button class="miniFab" (click) = "this.themeSelector()">
+        <ion-icon src="assets/paint-palette.svg"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab-list>
+  </ion-fab>
+
   </ion-content>

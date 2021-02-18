@@ -20,20 +20,32 @@ export class RegisterPage {
 
                 this.tasks=this.formBuilder.group({
                   login:['',[Validators.required, Validators.minLength(6)]],
-                  password:['', [Validators.required, Validators.minLength(6)]]
+                  password:['', [Validators.required, Validators.minLength(6)]],
+                  confirmPassword:['',[Validators.required]]
    })
   }
   
   public async register(){
     await this.presentLoading();
+    let msgNegative:string = 'No se ha registrado correctamente, compruebe los campos e inténtelo más tarde';
+    let msgPositive:string = '¡Te has registrado correctamente!'
+
+    let confirmedPassword = this.tasks.get('confirmPassword').value
+
     let user:User={
       loginName:this.tasks.get('login').value,
       password:this.tasks.get('password').value
     }
 
     console.log(user)
-    this.api.createUser(user);
-    await this.presentToast();
+    if(confirmedPassword == user.password){
+      this.api.createUser(user);
+      await this.presentToast(msgPositive);
+    }else{
+      await this.presentToast(msgNegative);
+    }
+    
+    
   }
 
   public closeForm(){
@@ -45,16 +57,16 @@ export class RegisterPage {
       cssClass: 'my-custom-class',
       message: 'Creando su cuenta, por favor espere',
       spinner:'crescent',
-      duration: 400
+      duration: 800
     });
     await loading.present();
   }
 
-  async presentToast() {
+  async presentToast(msg:string) {
     const toast = await this.toastController.create({
       cssClass: 'myToast',
-      message: '¡Te has registrado correctamente!',
-      duration: 1500,
+      message: msg,
+      duration: 1200,
       position:"bottom"
     });
     toast.present();

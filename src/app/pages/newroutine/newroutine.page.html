@@ -7,7 +7,7 @@
 <ion-content>
   <form [formGroup]="tasks" (ngSubmit)="this.addRoutine()">
     <ion-item>
-        <ion-input
+        <ion-input class="newRoutineFont"
         type="text" 
          formControlName="title"
          autocapitalize="true"
@@ -25,8 +25,8 @@
     </ion-item>
 
     <ion-item>
-      <ion-input 
-      type="text" 
+      <ion-input class="newRoutineFont"
+      type="text"
        formControlName="duration"
        autocapitalize="true"
        placeholder="Duración (en min)">
@@ -34,7 +34,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-input 
+      <ion-input class="newRoutineFont"
       type="text" 
        formControlName="difficulty"
        autocapitalize="true"

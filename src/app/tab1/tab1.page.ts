@@ -24,7 +24,12 @@ public rutinas=[];
 public listado:Array<PersonalRoutine>;
 public user:User;
 public buttonDisabled:boolean = false;
+
 public majin = 'assets/majin.png';
+public majinDarkMode = 'assets/majindm.png';
+
+public defaulticon = 'assets/defaulticon.png';
+public defaulticonDarkMode = 'assets/defaulticondm.png';
 
 constructor(private apiUser: ApiUserService,
             private apiPersonalRoutines: ApiPersonalRoutinesService,
@@ -178,12 +183,40 @@ public async addNewRoutine(){
   }
 
   enableLight(){
+    this.majin = 'assets/majin.png';
+    this.defaulticon = 'assets/defaulticon.png';
+
+
     this.themeService.enableLight();
   }
 
   enableDark(){
+    this.majin = 'assets/majindm.png';
+    this.defaulticon = 'assets/defaulticondm.png'
+
     this.themeService.enableDark();
   } 
+
+  enableTurtleHermit(){
+    this.majin = 'assets/majin.png';
+    this.defaulticon = 'assets/defaulticon.png';
+
+    this.themeService.enableTurtleHermit();
+  }
+
+  enableNamekian(){
+    this.majin = 'assets/majin.png';
+    this.defaulticon = 'assets/defaulticon.png';
+
+    this.themeService.enableNamekian();
+  }
+
+  enableBuu(){
+    this.majin = 'assets/majin.png';
+    this.defaulticon = 'assets/defaulticon.png';
+
+    this.themeService.enableBuu();
+  }
 
   async themeSelector(){
     const actionSheet = await this.actionSheetController.create({
@@ -206,8 +239,30 @@ public async addNewRoutine(){
           this.enableDark();
           //Native Storage
         }
-
-
+      },{
+        text: 'Turtle Hermit Gi',
+        icon: 'ellipse',
+        cssClass: 'editThemeMenu',
+        handler:() =>{
+          this.enableTurtleHermit();
+          //Native Storage
+        }
+      },{
+        text: 'Namekian',
+        icon: 'ellipse',
+        cssClass: 'editThemeMenu',
+        handler:() =>{
+          this.enableNamekian();
+          //Native Storage
+        }
+      },{
+        text: 'Majin Buu',
+        icon: 'ellipse',
+        cssClass: 'editThemeMenu',
+        handler:() =>{
+          this.enableBuu();
+          //Native Storage
+        }
       }]
 
     });

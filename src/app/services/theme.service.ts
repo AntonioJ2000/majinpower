@@ -22,8 +22,27 @@ renderer: Renderer2;
     this.renderer.addClass(this.document.body, 'dark-theme');
   } 
 
+  enableTurtleHermit(){
+    this.removeAll();
+    this.renderer.addClass(this.document.body, 'turtleHermit-theme');
+  }
+
+  enableNamekian(){
+    this.removeAll();
+    this.renderer.addClass(this.document.body, 'namekian-theme');
+  }
+
+  enableBuu(){
+    this.removeAll();
+    this.renderer.addClass(this.document.body, 'buu-theme');
+  }
+
   removeAll(){
     this.renderer.removeClass(this.document.body, 'dark-theme');
+    this.renderer.removeClass(this.document.body, 'turtleHermit-theme');
+    this.renderer.removeClass(this.document.body, 'namekian-theme');
+    this.renderer.removeClass(this.document.body, 'buu-theme');
   }
+
 
 }

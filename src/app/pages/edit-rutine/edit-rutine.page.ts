@@ -50,18 +50,20 @@ export class EditRutinePage {
     }
 
     await this.apiPersonalRoutines.updateRoutine(personalRoutine);
-    
-    await this.presentToast();
   }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: '',
+      cssClass: 'edit-loading',
+      message: 'Guardando cambios, por favor, espere',
       spinner:'crescent',
-      duration: 400
     });
     await loading.present();
+
+    setTimeout(async ()=>{
+      loading.dismiss();
+      await this.presentToast();
+    }, 800)
   }
 
   async presentToast() {
@@ -69,7 +71,7 @@ export class EditRutinePage {
       cssClass: 'myToast',
       message: "La nota se ha editado correctamente",
       duration: 1000,
-      position:"top"
+      position:"bottom"
     });
     toast.present();
   }

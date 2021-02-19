@@ -54,16 +54,20 @@
     </ion-fab-button>
     <ion-fab-list side="start">
 
-      <ion-fab-button class="miniFab" (click)="addNewRoutine()">
+      <ion-fab-button class="miniFab" (click)="this.addNewRoutine()">
         <ion-icon name="add-outline"></ion-icon>
       </ion-fab-button>
 
-      <ion-fab-button class="miniFab">
+      <ion-fab-button class="miniFab" (click)="this.goFighterzTierlist()">
         <ion-icon src="assets/trophy.svg"></ion-icon>
       </ion-fab-button>
 
       <ion-fab-button class="miniFab" (click) = "this.themeSelector()">
         <ion-icon src="assets/paint-palette.svg"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button class="leaveFab" (click) = "this.logOut()">
+        <ion-icon size="large" src="assets/check-out.svg"></ion-icon>
       </ion-fab-button>
 
     </ion-fab-list>

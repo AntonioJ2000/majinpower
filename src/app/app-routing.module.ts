@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'edit-rutine',
     loadChildren: () => import('./pages/edit-rutine/edit-rutine.module').then( m => m.EditRutinePageModule)
+  },
+  {
+    path: 'topfighterz',
+    loadChildren: () => import('./pages/topfighterz/topfighterz.module').then( m => m.TopfighterzPageModule)
   }
 ];
 @NgModule({

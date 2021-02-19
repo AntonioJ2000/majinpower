@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class ="loginContent">
   <ion-text>
     <p class="registerLabel">Regístrate</p>
     <p class="majinPower">en Majin Power</p>
@@ -22,11 +22,11 @@
     </ion-item>
 
     <div style="margin-top: 10px;">
-      <ion-button  class="buttonType" expand="block" fill="outline" type="submit" [disabled]="!tasks.valid" mode="ios">
+      <ion-button  class="buttonType" expand="block" fill="outline" type="submit" [disabled]="!tasks.valid" mode="md">
         Registrarse
       </ion-button>
 
-      <ion-button class="buttonType2" expand="block" fill="outline" mode="ios" (click)="this.closeForm()">
+      <ion-button class="buttonType2" expand="block" fill="outline" mode="md" (click)="this.closeForm()">
         Cancelar
       </ion-button>
     </div>

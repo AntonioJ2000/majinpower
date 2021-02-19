@@ -5,13 +5,14 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ApiUserService } from 'src/app/services/api-user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterPage } from '../register/register.page';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit{
   public tasks:FormGroup;
 
   constructor(private formBuilder:FormBuilder,
@@ -20,6 +21,7 @@ export class LoginPage {
               private modalController:ModalController,
               private storage: NativeStorage,
               private authS:AuthService,
+              private themeService:ThemeService,
               private api:ApiUserService) { 
     
                 this.tasks=this.formBuilder.group({
@@ -28,29 +30,81 @@ export class LoginPage {
     })
 
               }
+  ngOnInit() {
+    
+    try{
+      this.storage.getItem('themeColor')
+      .then((like) => {  
+        this.themeService.setThemeOnInit(like.theme);
+      })
+    }catch(err){
+      console.log("EEE")
+    }
+    
+    try{
+      this.storage.getItem('user')
+      .then((user) =>{
+          this.loginNative(user.loginName, user.password); 
+      })
+    }catch(err){
+      console.log("EEE")
+    }
+ 
+   
+  }
 
   public async login(){
     await this.presentLoading();
     this.authS.user.loginName = this.tasks.get('login').value;
     this.authS.user.password = this.tasks.get('password').value;
-    
-      this.authS.user = await this.api.existUser(this.authS.user.loginName, this.authS.user.password);
 
-      if(this.authS.user != null){
+    try{
+      this.authS.user = await this.api.existUser(this.authS.user.loginName, this.authS.user.password);
+    }catch(err){
+      this.tasks.get('password').setValue('');
+      await this.presentToast();
+    }  
+      if(this.authS.user.id != -1){
+         this.storage.setItem('user', {loginName:this.authS.user.loginName, password:this.authS.user.password})
          this.authS.login(this.authS.user);
-      }else{
-        console.log("Error inicio")
-      }   
+      }
+  }
+
+  public async loginNative(loginName:string, password:string){
+    await this.presentLoading();
+
+    try{
+      this.authS.user = await this.api.existUser(loginName, password);
+    }catch(err){
+      await this.presentToast();
+    }
+
+    if(this.authS.user.id != -1){
+      this.authS.login(this.authS.user);
+   }
   }
 
   async presentLoading(){
     const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'login-loading',
       message: 'Validando credenciales',
       spinner:'crescent',
-      duration: 200
     });
     await loading.present();
+
+    setTimeout(()=>{
+      loading.dismiss();
+    }, 350)
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      cssClass: 'errorToast',
+      message: 'Error en el inicio de sesión, introduzca de nuevo los campos o inténtelo de nuevo más tarde.',
+      duration: 2300,
+      position:"bottom"
+    });
+    toast.present();
   }
 
   public async registerUser(){

@@ -2,6 +2,10 @@
     --ion-background-color: white !important;
 }
 
+a{
+    color: primary;
+}
+
 .imgEdit{
     margin-top: 50px;
     height: 200px;
@@ -15,7 +19,7 @@
     text-align: center;
 }
 
-.buttonType{
+.loginButtonType{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     margin-top: 50px;

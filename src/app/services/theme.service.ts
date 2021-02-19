@@ -37,6 +37,11 @@ renderer: Renderer2;
     this.renderer.addClass(this.document.body, 'buu-theme');
   }
 
+  setThemeOnInit(tema:string){
+    this.removeAll();
+    this.renderer.addClass(this.document.body, tema);
+  }
+
   removeAll(){
     this.renderer.removeClass(this.document.body, 'dark-theme');
     this.renderer.removeClass(this.document.body, 'turtleHermit-theme');

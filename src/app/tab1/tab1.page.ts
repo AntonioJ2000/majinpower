@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ActionSheetController, AlertController, IonSearchbar, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { timer } from 'rxjs';
 import { PersonalRoutine } from '../model/personalRoutine';
 import { User } from '../model/user';
 import { EditRutinePage } from '../pages/edit-rutine/edit-rutine.page';
 import { NewroutinePage } from '../pages/newroutine/newroutine.page';
+import { TopfighterzPage } from '../pages/topfighterz/topfighterz.page';
 import { ApiPersonalRoutinesService } from '../services/api-personal-routines.service';
 import { ApiUserService } from '../services/api-user.service';
 import { AuthService } from '../services/auth.service';
@@ -40,7 +42,8 @@ constructor(private apiUser: ApiUserService,
             public alertController: AlertController,
             private modalController:ModalController,
             private themeService:ThemeService,
-            private actionSheetController:ActionSheetController) {
+            private actionSheetController:ActionSheetController,
+            private nativeStorage: NativeStorage) {
             this.user = authS.user;
 }
 
@@ -48,6 +51,9 @@ startTimer(personalRoutine:PersonalRoutine){
   this.buttonDisabled = true;
   let time = timer(0, 1000);
   let subscription = time.subscribe(x =>{
+    if(personalRoutine.duration<10){
+      personalRoutine.duration = 10;
+    }
     if(x == (personalRoutine.duration*60)){
       this.buttonDisabled = false;
       subscription.unsubscribe();
@@ -75,29 +81,40 @@ async ionViewWillEnter(){
 }
 
 public async carga(){
-
     try{
       this.listado = await this.apiPersonalRoutines.getPersonalRoutines(this.authS.user);
       this.rutinas = this.listado;
-      console.log(this.listado)
     }catch(err){
       console.log(err)
       this.listado = null;
     }
 }
 
-public async addNewRoutine(){
-  const modal = await this.modalController.create({
-    component: NewroutinePage,
-    cssClass: 'my-custom-class',
-  });
-  modal.present();
-
-  return await modal.onDidDismiss()
-    .then((onCreate)=>{
-      this.carga();
-    })
+public async logOut(){
+  this.nativeStorage.remove('user');
+  await this.presentLoadingLeaving();
 }
+
+  public async addNewRoutine(){
+    const modal = await this.modalController.create({
+      component: NewroutinePage,
+      cssClass: 'my-custom-class'
+    });
+    modal.present();
+
+    return await modal.onDidDismiss()
+      .then((onCreate)=>{
+        this.carga();
+      })
+  }
+
+  public async goFighterzTierlist(){
+    const modal = await this.modalController.create({
+      component: TopfighterzPage,
+      cssClass: 'my-custom-class'
+    });
+    modal.present();
+  }
 
   public async confirmDeleteRoutine(id:any){
     const alert = await this.alertController.create({
@@ -174,13 +191,28 @@ public async addNewRoutine(){
 
   async presentLoading(){
     const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'list-loading',
       message: '',
       spinner:'crescent',
       duration: 600
     });
     await loading.present();
   }
+
+  async presentLoadingLeaving(){
+    const loading = await this.loadingController.create({
+      cssClass: 'logout-loading',
+      message: 'Cerrando Sesión, por favor, espere',
+      spinner:'crescent',
+    });
+    await loading.present();
+
+    setTimeout(async ()=>{
+      loading.dismiss();
+      await this.authS.logout();
+    },1500)
+  }
+
 
   enableLight(){
     this.majin = 'assets/majin.png';
@@ -225,49 +257,55 @@ public async addNewRoutine(){
       mode:'md',
       buttons:[{
         text: 'Por defecto',
-        icon: 'ellipse-outline',
+        icon: 'assets/sun.svg',
         cssClass: 'editThemeMenu',
         handler: () =>{
           this.enableLight();
           //Native Storage
+          this.nativeStorage.setItem('themeColor', {theme:'default-theme'})
         }
       },{
         text: 'Modo Oscuro',
-        icon: 'ellipse',
+        icon: 'assets/moon.svg',
         cssClass: 'editThemeMenu',
         handler:() =>{
           this.enableDark();
           //Native Storage
+          this.nativeStorage.setItem('themeColor', {theme:'dark-theme'})
         }
       },{
         text: 'Turtle Hermit Gi',
-        icon: 'ellipse',
+        icon: 'assets/hermit-gi.svg',
         cssClass: 'editThemeMenu',
         handler:() =>{
           this.enableTurtleHermit();
           //Native Storage
+          this.nativeStorage.setItem('themeColor', {theme:'turtleHermit-theme'})
         }
       },{
         text: 'Namekian',
-        icon: 'ellipse',
+        icon: 'assets/namek.svg',
         cssClass: 'editThemeMenu',
         handler:() =>{
           this.enableNamekian();
           //Native Storage
+          this.nativeStorage.setItem('themeColor', {theme:'namekian-theme'})
         }
       },{
         text: 'Majin Buu',
-        icon: 'ellipse',
+        icon: 'assets/buu.svg',
         cssClass: 'editThemeMenu',
         handler:() =>{
           this.enableBuu();
           //Native Storage
+          this.nativeStorage.setItem('themeColor', {theme:'buu-theme'})
         }
       }]
 
     });
     await actionSheet.present();
   }
+
 
 
 }

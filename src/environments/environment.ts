@@ -4,6 +4,7 @@ export const environment = {
   apiUser:'user/',
   apiPersonalRoutine:'personalroutine/',
   existFilter:'exists/',
+  topfighterzFilter:'topfighterz/',
   zpowerUpdate:'updateZpower/'
   //newendpoint: https://majinpower.herokuapp.com/
 };

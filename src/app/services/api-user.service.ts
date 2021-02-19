@@ -25,6 +25,20 @@ export class ApiUserService {
       });
   }
 
+  public getTopFighterz():Promise<User[] | null>{
+    return new Promise((resolve, reject)=>{
+        const endpoint=environment.endpoint + environment.apiUser + environment.topfighterzFilter;
+        this.http.get(endpoint,{},this.header)
+        .then(d=>{
+          if(d){
+            resolve(JSON.parse(d.data))
+          }else{
+            resolve(null);
+          }
+        }).catch(err=>reject(err))
+    });
+}
+
   public existUser(login:string, password:string):Promise<User | null>{
     return new Promise((resolve, reject)=>{
       const endpoint = environment.endpoint + environment.apiUser + environment.existFilter + login + '_' + password;

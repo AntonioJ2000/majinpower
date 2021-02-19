@@ -27,7 +27,7 @@
       </ion-item>
     </div>
 
-      <ion-button  class="buttonType" fill="outline" type="submit" [disabled]="!tasks.valid"  mode="ios">
+      <ion-button  class="loginButtonType" fill="outline" type="submit" [disabled]="!tasks.valid"  mode="md">
         Entrar
       </ion-button>
 
@@ -35,7 +35,7 @@
   </form>
 
   <ion-text>
-    <p class="registerLabel">Si aún no te has registrado, <a style="text-color: blue" (click)="registerUser()">Hazlo aquí</a></p>
+    <p class="registerLabel">Si aún no te has registrado, <a (click)="registerUser()">Hazlo aquí</a></p>
   </ion-text>
 
 </ion-content>

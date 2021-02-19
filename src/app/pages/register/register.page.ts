@@ -26,7 +26,6 @@ export class RegisterPage {
   }
   
   public async register(){
-    await this.presentLoading();
     let msgNegative:string = 'No se ha registrado correctamente, compruebe los campos e inténtelo más tarde';
     let msgPositive:string = '¡Te has registrado correctamente!'
 
@@ -39,34 +38,51 @@ export class RegisterPage {
 
     console.log(user)
     if(confirmedPassword == user.password){
+      await this.presentLoadingPositive(msgPositive); 
       this.api.createUser(user);
-      await this.presentToast(msgPositive);
     }else{
-      await this.presentToast(msgNegative);
+      await this.presentLoadingPositive(msgNegative); 
     }
-    
-    
+      
   }
 
   public closeForm(){
     this.modalController.dismiss();
   }
 
-  async presentLoading(){
+  async presentLoadingPositive(msgPositive){
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Creando su cuenta, por favor espere',
       spinner:'crescent',
-      duration: 800
     });
     await loading.present();
+
+    setTimeout(()=>{
+      loading.dismiss();
+      this.presentToast(msgPositive);
+    },1200)
+  }
+
+  async presentLoadingNegative(msgNegative){
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Creando su cuenta, por favor espere',
+      spinner:'crescent',
+    });
+    await loading.present();
+
+    setTimeout(()=>{
+      loading.dismiss();
+      this.presentToast(msgNegative);
+    },1200)
   }
 
   async presentToast(msg:string) {
     const toast = await this.toastController.create({
       cssClass: 'myToast',
       message: msg,
-      duration: 1200,
+      duration: 1000,
       position:"bottom"
     });
     toast.present();

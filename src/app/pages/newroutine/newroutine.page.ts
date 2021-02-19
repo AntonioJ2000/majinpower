@@ -41,19 +41,22 @@ export class NewroutinePage {
       user: this.authS.user
     }
 
-    this.apiPersonalRoutines.createPersonalRoutine(personalRoutine);
-
-    await this.presentToast();
+    await this.apiPersonalRoutines.createPersonalRoutine(personalRoutine);
   }
 
   async presentLoading(){
     const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'add-loading',
       message: 'Creando su rutina, espere',
       spinner:'crescent',
-      duration: 400
+      duration: 1500
     });
     await loading.present();
+
+    setTimeout(async ()=>{
+      loading.dismiss();
+      await this.presentToast();
+    })
   }
 
   async presentToast() {

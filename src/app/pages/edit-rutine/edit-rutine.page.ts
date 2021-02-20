@@ -69,7 +69,7 @@ export class EditRutinePage {
   async presentToast() {
     const toast = await this.toastController.create({
       cssClass: 'myToast',
-      message: "La nota se ha editado correctamente",
+      message: "La rutina se ha editado correctamente",
       duration: 1000,
       position:"bottom"
     });

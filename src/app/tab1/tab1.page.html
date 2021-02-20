@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-avatar class="avatar" slot ="start" style="width: 45px; height: 45px;">
-          <img [src]="defaulticon">
+          <img [src]="this.user.image">
         </ion-avatar>
         <ion-label class="nameLabel">{{this.user.loginName}}</ion-label>
         <ion-label slot="end" class="zpower">{{this.user.zpower}}</ion-label>
@@ -9,7 +9,7 @@
           <img src="assets/zpower.png">
         </ion-avatar>
     </ion-toolbar>
-    <div class="majinLogoDiv">
+    <div class="majinLogoDiv" (click)="this.userProfile()">
       <img class="majinLogo" [src]="majin" >
     </div>
   </ion-header>

@@ -7,6 +7,7 @@ import { PersonalRoutine } from '../model/personalRoutine';
 import { User } from '../model/user';
 import { EditRutinePage } from '../pages/edit-rutine/edit-rutine.page';
 import { NewroutinePage } from '../pages/newroutine/newroutine.page';
+import { ProfilePage } from '../pages/profile/profile.page';
 import { TopfighterzPage } from '../pages/topfighterz/topfighterz.page';
 import { ApiPersonalRoutinesService } from '../services/api-personal-routines.service';
 import { ApiUserService } from '../services/api-user.service';
@@ -28,10 +29,7 @@ public user:User;
 public buttonDisabled:boolean = false;
 
 public majin = 'assets/majin.png';
-public majinDarkMode = 'assets/majindm.png';
-
 public defaulticon = 'assets/defaulticon.png';
-public defaulticonDarkMode = 'assets/defaulticondm.png';
 
 constructor(private apiUser: ApiUserService,
             private apiPersonalRoutines: ApiPersonalRoutinesService,
@@ -72,11 +70,23 @@ public searchRoutine(ev:any){
 }
 
 async ionViewWillEnter(){
+  try{
+    this.nativeStorage.getItem('themeColor')
+    .then((like) => {  
+      if(like.theme == 'dark-theme'){
+        this.majin = 'assets/majindm.png';
+         this.defaulticon = 'assets/defaulticondm.png'
+      }
+    })
+  }catch(err){
+    console.log("EEE")
+  }
   await this.presentLoading();
   if(this.authS.user.id == -1){
     this.router.navigate(['/login'])
   }else{
     this.carga();
+    console.log(this.authS.user)
   }
 }
 
@@ -162,6 +172,14 @@ public async logOut(){
     .then((onEdit)=>{
       this.carga();
     })
+  }
+
+  public async userProfile(){
+    const modal = await this.modalController.create({
+      component: ProfilePage,
+      cssClass: 'my-custom-class',
+    });
+    modal.present();
   }
 
   public async addZpower(){

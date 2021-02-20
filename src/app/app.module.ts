@@ -12,6 +12,7 @@ import { AuthService } from './services/auth.service';
 import { HTTP } from '@ionic-native/http/ngx'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ThemeService } from './services/theme.service';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { ThemeService } from './services/theme.service';
     ModalController,
     NativeStorage,
     ThemeService,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

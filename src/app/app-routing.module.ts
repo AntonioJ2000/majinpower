@@ -27,6 +27,10 @@ const routes: Routes = [
   {
     path: 'topfighterz',
     loadChildren: () => import('./pages/topfighterz/topfighterz.module').then( m => m.TopfighterzPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 @NgModule({

@@ -13,7 +13,8 @@ export class AuthService implements CanActivate{
     loginName: '',
     password: '',
     personalRoutines:[],
-    zpower:0
+    zpower:0,
+    image:''
   }
 
   constructor(private router:Router,
@@ -49,6 +50,7 @@ export class AuthService implements CanActivate{
     this.user.password = '';
     this.user.personalRoutines = [];
     this.user.zpower = 0;
+    this.user.image = '';
     
     this.router.navigate(['/login'])
   }

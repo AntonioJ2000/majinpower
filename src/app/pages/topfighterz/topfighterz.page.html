@@ -1,22 +1,26 @@
 <ion-header>
   <ion-toolbar style="height: 80px;">
-    <img class="zwarriorsLogo" src="assets/zwarriors.png" >
+    <img class="zwarriorsLogo" src="assets/zwarriorsrainbow.png" >
   </ion-toolbar>
   
 </ion-header>
 
 <ion-content>
   <ion-list mode="ios" lines="full">
-    <ion-item style="margin-top: 100px;" class="fontType" *ngFor="let User of this.fighterzlist;let i=index">
-      <ion-label  slot="start" class="indexLabel">
+    <ion-item class="fontType" *ngFor="let User of this.fighterzlist;let i=index">
+      <ion-thumbnail slot="start">
+        <ion-img style="height: 70px width: 70;" [src]="User.image"></ion-img>
+      </ion-thumbnail>
+
+      <p slot="start" class="indexLabel">
         {{i+1}}.
-      </ion-label>
-        <ion-label slot="start" class="fighterNameLabel">
+      </p>
+        <p slot="start" class="fighterNameLabel">
           {{User.loginName}}
-        </ion-label>
-        <ion-label slot ="end" class="fighterZpowerLabel">
+        </p>
+        <p slot="end" class="fighterZpowerLabel">
           {{User.zpower}}
-        </ion-label>
+        </p>
           <ion-avatar slot ="end" class="avatar" style="width: 55px; height: 55px;">
             <img src="assets/zpower.png">
           </ion-avatar>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="tasks" (ngSubmit)="this.editProfile()">
+    <img class="userImage" [src]="this.user.image">
+    <div style="text-align: right;">
+      <ion-button class="buttonType4" expand="block" fill="outline" mode="md" (click)="this.getCamera()">Abrir Cámara</ion-button>
+     <ion-button class="buttonType3" expand="block" fill="outline" mode="md" (click)="this.getGallery()">Abrir Galería</ion-button>
+    </div>
+
+    <ion-item class="name">
+      <ion-input
+        type="text" class="font"
+         formControlName="loginName"
+         autocapitalize="true"
+         placeholder="Nombre de Usuario">
+        </ion-input>
+    </ion-item>
+
+    <ion-item class="password">
+      <ion-input class="font"
+       formControlName="password"
+        placeholder="Contraseña"
+        autocapitalize="true">
+      </ion-input>
+  </ion-item>
+
+    <div style="text-align: right;">
+      <ion-button  class="buttonType" expand="block" fill="outline" mode="md" type="submit" [disabled]="!tasks.valid">
+        Editar perfil
+      </ion-button>
+
+      <ion-button class="buttonType2" expand="block" fill="outline" mode="md" (click)="this.closeEdit()">
+        Salir
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

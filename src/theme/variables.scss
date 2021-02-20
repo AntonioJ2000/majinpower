@@ -102,7 +102,7 @@
       --background:white;
       background-color: white;
     }
-    .nameLabel, .zpower, .fighterNameLabel, .fighterZpowerLabel, .indexLabel, .editRoutineFont, .descriptionLabel, .newRoutineFont{
+    .nameLabel, .zpower, .fighterNameLabel, .fighterZpowerLabel, .indexLabel, .editRoutineFont, .descriptionLabel, .newRoutineFont, .name, .password{
       color: white;
     }
 
@@ -110,7 +110,7 @@
       color:white;
     }
 
-    .buttonType{
+    .buttonType, .buttonType3, .buttonType4{
       --border-color:white;
       color:white;
     }

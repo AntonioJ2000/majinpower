@@ -6,4 +6,5 @@ export interface User{
     password:string,
     personalRoutines?: PersonalRoutine[],
     zpower?:any;
+    image?:string;
 }

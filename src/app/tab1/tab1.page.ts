@@ -45,6 +45,10 @@ constructor(private apiUser: ApiUserService,
             this.user = authS.user;
 }
 
+/**
+ * starts a timer to disable the button
+ * @param personalRoutine the function get the duration to disable the button for that time
+ */
 startTimer(personalRoutine:PersonalRoutine){
   this.buttonDisabled = true;
   let time = timer(0, 1000);
@@ -59,6 +63,10 @@ startTimer(personalRoutine:PersonalRoutine){
   })
 }
 
+/**
+ * Allows user to search a routine
+ * @param ev event
+ */
 public searchRoutine(ev:any){
   const val = ev.target.value;
   this.listado = this.rutinas;
@@ -89,6 +97,9 @@ async ionViewWillEnter(){
   }
 }
 
+/**
+ * Loads the personal routine list
+ */
 public async carga(){
     try{
       this.listado = await this.apiPersonalRoutines.getPersonalRoutines(this.authS.user);
@@ -99,6 +110,9 @@ public async carga(){
     }
 }
 
+/**
+ * Log out from the app
+ */
 public async logOut(){
   this.nativeStorage.remove('user');
   await this.presentLoadingLeaving();
@@ -151,12 +165,20 @@ public async logOut(){
     await alert.present();
   }
 
+  /**
+   * delete a routine
+   * @param id of the routine you want to delete
+   */
   public async borraRutina(id:any){
     await this.apiPersonalRoutines.deletePersonalRoutine(id);
     await this.presentToast('La rutina ha sido borrada con éxito');
     this.carga();
   }
 
+  /**
+   * opens a modal to edit a routine
+   * @param personalRoutine routine you want to update 
+   */
   public async editaRutina(personalRoutine:PersonalRoutine){
     const modal = await this.modalController.create({
       component: EditRutinePage,
@@ -173,6 +195,9 @@ public async logOut(){
     })
   }
 
+  /**
+   * opens a modal to open the user profile
+   */
   public async userProfile(){
     const modal = await this.modalController.create({
       component: ProfilePage,
@@ -181,6 +206,9 @@ public async logOut(){
     modal.present();
   }
 
+  /**
+   * Adds to the user a certain amount of Zpower
+   */
   public async addZpower(){
     this.authS.user.zpower = this.authS.user.zpower + 1500
     let userToDB:User={
@@ -197,6 +225,10 @@ public async logOut(){
     });
   }
 
+  /**
+  * Add to the routine times done count a unit 
+  * @param PersonalRoutine routine to update
+  */
   public async addRoutineTimesDoneCount(PersonalRoutine:PersonalRoutine){
     PersonalRoutine.timesDone = PersonalRoutine.timesDone + 1;
 

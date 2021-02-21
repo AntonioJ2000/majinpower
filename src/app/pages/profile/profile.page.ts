@@ -39,6 +39,9 @@ export class ProfilePage {
     this.tasks.get('password').setValue(this.authS.user.password); 
   }
 
+  /**
+   * edit the user profile and save it to the db
+   */
   public async editProfile(){
     this.presentLoading();
     let user:User={
@@ -86,6 +89,9 @@ export class ProfilePage {
     this.modalController.dismiss();
   }
 
+  /**
+   * Opens the device camera and loads it to the page
+   */
     public getCamera(){
     this.camera.getPicture({
       targetHeight:500,
@@ -100,6 +106,9 @@ export class ProfilePage {
     })
   }
 
+  /**
+   * Opens the gallery to take a picture and loads it to the page
+   */
   public getGallery(){
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,

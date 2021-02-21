@@ -58,6 +58,9 @@ export class LoginPage implements OnInit{
     }
   }
 
+  /**
+   * Logs de user to the app
+   */
   public async login(){
     await this.presentLoading();
     this.authS.user.loginName = this.tasks.get('login').value;
@@ -75,6 +78,11 @@ export class LoginPage implements OnInit{
       }
   }
 
+  /**
+   * Gets the user from the native storage and logs to the db
+   * @param loginName user loginName saved in the storage
+   * @param password user password saved in the storage
+   */
   public async loginNative(loginName:string, password:string){
     await this.presentLoading();
 

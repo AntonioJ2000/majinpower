@@ -11,6 +11,9 @@ export class ApiUserService {
 
   constructor(private http:HTTP) { }
 
+  /**
+   * Get all users from the database (not used)
+   */
   public getUsers():Promise<User[] | null>{
       return new Promise((resolve, reject)=>{
           const endpoint=environment.endpoint + environment.apiUser;
@@ -25,6 +28,9 @@ export class ApiUserService {
       });
   }
 
+  /**
+   * Get the 15 users with more zpower from the database
+   */
   public getTopFighterz():Promise<User[] | null>{
     return new Promise((resolve, reject)=>{
         const endpoint=environment.endpoint + environment.apiUser + environment.topfighterzFilter;
@@ -39,6 +45,11 @@ export class ApiUserService {
     });
 }
 
+/**
+ * Return the user if he exists in the db
+ * @param login loginName from the user
+ * @param password password of the user
+ */
   public existUser(login:string, password:string):Promise<User | null>{
     return new Promise((resolve, reject)=>{
       const endpoint = environment.endpoint + environment.apiUser + environment.existFilter + login + '_' + password;
@@ -54,6 +65,10 @@ export class ApiUserService {
     })
   }
 
+ /**
+  * Delete user from the db (unused) 
+  * @param user user to delete
+  */
   public deleteUser(user:User):Promise<void>{
     const id:any = user.id ? user.id:user;
     let endpoint = environment.endpoint + environment.apiUser + id;
@@ -66,6 +81,10 @@ export class ApiUserService {
     })
   }
 
+  /**
+   * Create user in the db
+   * @param user user to create
+   */
   public createUser(user:User):Promise<void>{
     const endpoint = environment.endpoint + environment.apiUser;
     return new Promise((resolve, reject)=>{
@@ -82,6 +101,10 @@ export class ApiUserService {
     })
   }
 
+  /**
+   * Update user in the db
+   * @param user user to update
+   */
   public updateUser(user:User):Promise<void>{
     const endpoint = environment.endpoint + environment.apiUser;
     return new Promise((resolve, reject)=>{
@@ -98,6 +121,10 @@ export class ApiUserService {
     })
   }
 
+  /**
+   * Update the user Zpower in the db (same as updateUser)
+   * @param user 
+   */
   public updateUserZpower(user:User):Promise<void>{
     const endpoint = environment.endpoint + environment.apiUser + environment.zpowerUpdate + user.id
     return new Promise((resolve, reject)=>{

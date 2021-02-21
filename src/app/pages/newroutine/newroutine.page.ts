@@ -29,6 +29,9 @@ export class NewroutinePage {
    })
   }
 
+  /**
+   * get the routine parameters and save it to the db
+   */
   public async addRoutine(){
     await this.presentLoading();
 

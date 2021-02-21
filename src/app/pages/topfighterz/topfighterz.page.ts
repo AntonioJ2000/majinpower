@@ -20,6 +20,9 @@ export class TopfighterzPage {
     this.cargaFighterz();
   }
 
+  /**
+   * Load the top users from the db
+   */
   public async cargaFighterz(){
     try{
       this.fighterzlist = await this.apiUser.getTopFighterz();

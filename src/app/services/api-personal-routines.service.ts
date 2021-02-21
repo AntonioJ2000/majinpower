@@ -11,6 +11,10 @@ export class ApiPersonalRoutinesService {
 
   constructor(private http:HTTP) { }
 
+  /**
+   * get all personal routines given a user
+   * @param user user to get the routines from
+   */
   public getPersonalRoutines(user: User):Promise<PersonalRoutine[] | null>{
     return new Promise((resolve, reject)=>{
         const endpoint=environment.endpoint + environment.apiPersonalRoutine + user.id;
@@ -25,6 +29,10 @@ export class ApiPersonalRoutinesService {
     });
 }
 
+/**
+ * create a personal routine in the db
+ * @param personalRoutine personal routine you want to create
+ */
 public createPersonalRoutine(personalRoutine:PersonalRoutine):Promise<void>{
   const endpoint = environment.endpoint + environment.apiPersonalRoutine;
   return new Promise((resolve, reject)=>{
@@ -41,6 +49,10 @@ public createPersonalRoutine(personalRoutine:PersonalRoutine):Promise<void>{
   })
 }
 
+/**
+ * delete a personal routine from the db
+ * @param id personal routine you want to delete
+ */
 public deletePersonalRoutine(id:any):Promise<void>{
   const endpoint = environment.endpoint + environment.apiPersonalRoutine + id;
   return new Promise((resolve, reject)=>{
@@ -52,6 +64,10 @@ public deletePersonalRoutine(id:any):Promise<void>{
   })
 }
 
+/**
+ * update routine in the db
+ * @param personalRoutine the routine you want to be updated
+ */
 public updateRoutine(personalRoutine:PersonalRoutine):Promise<void>{
   const endpoint = environment.endpoint + environment.apiPersonalRoutine;
   return new Promise ((resolve, reject)=>{

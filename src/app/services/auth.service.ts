@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { User } from '../model/user';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,7 @@ export class AuthService implements CanActivate{
   
   loged:boolean = false;
 
-  constructor(private router:Router,
-              private storage: NativeStorage) { }
+  constructor(private router:Router) { }
 
 
 
@@ -41,12 +39,19 @@ export class AuthService implements CanActivate{
     }
   }
 
+  /**
+   * Makes the user log in if exists in the database
+   * @param user user to log in
+   */
   public async login(user:User){
     this.loged = true;
     this.user = user;
     this.router.navigate(['/'])
   }
 
+  /**
+   * Log out from the app
+   */
   public async logout(){
     this.loged = false;
     this.user.id = -1;

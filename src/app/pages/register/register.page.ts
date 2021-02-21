@@ -25,6 +25,9 @@ export class RegisterPage {
    })
   }
   
+  /**
+   * Register a certain user with the given parameters
+   */
   public async register(){
     let msgNegative:string = 'No se ha registrado correctamente, compruebe los campos e inténtelo más tarde';
     let msgPositive:string = '¡Te has registrado correctamente!'

@@ -38,6 +38,9 @@ export class EditRutinePage {
     this.tasks.get('difficulty').setValue(this.personalRoutine.difficulty);
   }
 
+  /**
+   * edit the user routine and save it in the db
+   */
   public async editRoutine(){
     await this.presentLoading();
     let personalRoutine:PersonalRoutine={

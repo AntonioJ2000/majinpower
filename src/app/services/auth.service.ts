@@ -16,6 +16,8 @@ export class AuthService implements CanActivate{
     zpower:0,
     image:''
   }
+  
+  loged:boolean = false;
 
   constructor(private router:Router,
               private storage: NativeStorage) { }
@@ -40,11 +42,13 @@ export class AuthService implements CanActivate{
   }
 
   public async login(user:User){
+    this.loged = true;
     this.user = user;
     this.router.navigate(['/'])
   }
 
   public async logout(){
+    this.loged = false;
     this.user.id = -1;
     this.user.loginName= '';
     this.user.password = '';

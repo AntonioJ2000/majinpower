@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/model/user';
 import { ApiUserService } from 'src/app/services/api-user.service';
@@ -12,7 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
-  public user:User;
+  
+  user:User = this.authS.user;
 
   public tasks:FormGroup;
 
@@ -22,9 +24,9 @@ export class ProfilePage {
               private modalController:ModalController,
               private authS:AuthService,
               private userApi:ApiUserService,
-              private camera:Camera) {    
+              private camera:Camera,
+              private nativeStorage: NativeStorage) {    
     
-                  this.user = this.authS.user;
 
     this.tasks = this.formBuilder.group({
     loginName:['', [Validators.required, Validators.minLength(6)]],
@@ -38,17 +40,22 @@ export class ProfilePage {
   }
 
   public async editProfile(){
-    await this.presentLoading();
+    this.presentLoading();
     let user:User={
       id:this.authS.user.id,
-      image: this.authS.user.image,
+      image: this.user.image,
       loginName:this.tasks.get('loginName').value,
       password:this.tasks.get('password').value,
       personalRoutines:this.authS.user.personalRoutines,
       zpower:this.authS.user.zpower
     }
 
-    await this.userApi.updateUser(user);
+      this.authS.user.loginName = user.loginName;
+      this.authS.user.password = user.password;
+      this.nativeStorage.remove('user');
+      this.nativeStorage.setItem('user', {loginName:this.authS.user.loginName, password:this.authS.user.password})
+
+      await this.userApi.updateUser(user);
   }
 
   async presentLoading() {
@@ -79,10 +86,13 @@ export class ProfilePage {
     this.modalController.dismiss();
   }
 
-    getCamera(){
+    public getCamera(){
     this.camera.getPicture({
+      targetHeight:500,
+      targetWidth:500,
       sourceType: this.camera.PictureSourceType.CAMERA,
-      destinationType: this.camera.DestinationType.FILE_URI
+      destinationType: this.camera.DestinationType.DATA_URL,
+      correctOrientation: true
     }).then((res)=>{
       this.user.image = 'data:image/jpeg;base64,' + res;
     }).catch(e => {
@@ -93,7 +103,8 @@ export class ProfilePage {
   public getGallery(){
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL
+      destinationType: this.camera.DestinationType.DATA_URL,
+      correctOrientation: true
     }).then((res)=>{
       this.user.image = 'data:image/jpeg;base64,' + res;
     }).catch(e => {

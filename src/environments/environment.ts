@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  endpoint:'http://localhost:8100/',
+  endpoint:'https://majinpower.herokuapp.com/',
   apiUser:'user/',
   apiPersonalRoutine:'personalroutine/',
   existFilter:'exists/',

@@ -86,7 +86,6 @@ async ionViewWillEnter(){
     this.router.navigate(['/login'])
   }else{
     this.carga();
-    console.log(this.authS.user)
   }
 }
 
@@ -183,17 +182,35 @@ public async logOut(){
   }
 
   public async addZpower(){
-    this.authS.user.zpower = this.authS.user.zpower + 1500;
+    this.authS.user.zpower = this.authS.user.zpower + 1500
+    let userToDB:User={
+      id:this.authS.user.id,
+      image: this.authS.user.image,
+      loginName:this.authS.user.loginName,
+      password:this.authS.user.password,
+      personalRoutines:this.authS.user.personalRoutines,
+      zpower:this.authS.user.zpower
+    }
 
-    await this.apiUser.updateUser(this.authS.user);
-
-    await this.presentToast('¡Has aumentado de poder!');
+    this.apiUser.updateUser(userToDB).then(async (res)=>{
+      await this.presentToast('¡Has aumentado de poder!');
+    });
   }
 
   public async addRoutineTimesDoneCount(PersonalRoutine:PersonalRoutine){
     PersonalRoutine.timesDone = PersonalRoutine.timesDone + 1;
 
-    await this.apiPersonalRoutines.updateRoutine(PersonalRoutine);
+    let personalRoutineToDB:PersonalRoutine= {
+      id: PersonalRoutine.id,
+      title: PersonalRoutine.title,
+      description: PersonalRoutine.description,
+      difficulty:PersonalRoutine.difficulty,
+      duration:PersonalRoutine.duration,
+      user:PersonalRoutine.user,
+      timesDone: PersonalRoutine.timesDone
+    }
+
+    await this.apiPersonalRoutines.updateRoutine(personalRoutineToDB);
   }
 
 

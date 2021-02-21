@@ -6,6 +6,7 @@ import { ApiUserService } from 'src/app/services/api-user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterPage } from '../register/register.page';
 import { ThemeService } from 'src/app/services/theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginPage implements OnInit{
               private storage: NativeStorage,
               private authS:AuthService,
               private themeService:ThemeService,
-              private api:ApiUserService) { 
+              private api:ApiUserService,
+              private router:Router) { 
     
                 this.tasks=this.formBuilder.group({
                   login:['',Validators.required],
@@ -31,7 +33,6 @@ export class LoginPage implements OnInit{
 
               }
   ngOnInit() {
-    
     try{
       this.storage.getItem('themeColor')
       .then((like) => {  
@@ -49,8 +50,12 @@ export class LoginPage implements OnInit{
     }catch(err){
       console.log("EEE")
     }
- 
-   
+  }
+
+  ionViewWillEnter(){
+    if(this.authS.loged == true){
+          this.router.navigate(['/'])
+    }
   }
 
   public async login(){

@@ -100,7 +100,7 @@ async ionViewWillEnter(){
 /**
  * Loads the personal routine list
  */
-public async carga(){
+public async carga($event=null){
     try{
       this.listado = await this.apiPersonalRoutines.getPersonalRoutines(this.authS.user);
       this.rutinas = this.listado;

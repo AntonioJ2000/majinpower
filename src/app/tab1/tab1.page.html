@@ -16,6 +16,9 @@
   
   <ion-content [fullscreen]="true">
     <ion-searchbar class="routineSearchBar" #search placeholder="Buscar rutina" (ionChange)="searchRoutine($event)"></ion-searchbar>
+    <ion-refresher slot="fixed" (ionRefresh)="this.carga($event)">
+      <ion-refresher-content class="refresherStyle"></ion-refresher-content>
+    </ion-refresher>
     <div style="display: flex; align-items: center; justify-content: center;">
     <ion-list>
       <ion-item lines="full" *ngFor="let PersonalRoutine of listado">

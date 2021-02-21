@@ -104,6 +104,9 @@ public async carga($event=null){
     try{
       this.listado = await this.apiPersonalRoutines.getPersonalRoutines(this.authS.user);
       this.rutinas = this.listado;
+      if($event){
+        $event.target.complete();
+      }
     }catch(err){
       console.log(err)
       this.listado = null;
